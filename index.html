@@ -1,0 +1,213 @@
+<html>
+<head>
+<script type="text/javascript" src="http://public.tableausoftware.com/javascripts/api/tableau_v8.debug.js"></script>
+</head>
+<body>
+
+	<div class='container'>
+		<div class='row'>
+			<h4 class='span7 pagination-centered'>BRIC - Exchange Rate Analysis</h4>
+			<p>Exchange rate of a country depends on several factors. We examined 3 factors: <br>
+			    <ol> <li> Inflation <li> Balance of  Trade (Exports - Imports) <li> Interest Rates </ol>
+				and their effect on the exchange rate of BRIC (Brazil, Russia, India and China) using data available between 2005 - 2012. 
+				<br>  Data Sources:  1) UN Operational Rates of Exchange: http://treasury.un.org/operationalrates/OperationalRates.aspx 2) World Bank Economic Indicators: http://data.worldbank.org/</p>
+		</div>
+		<div class='row'><h3 class='offset3 span7 pagination-centered' id='sheetName'></h3></div>
+		<div class='row'>
+		
+			<!-- All of our work will happen here -->
+			<!-- Viz located at http://public.tableausoftware.com/views/Presents/TreeMap -->
+			<ul id = 'menu' class='nav nav-list offset1 span2'>
+				<!-- This is the menu where we will add all of our buttons. -->
+				<!-- <li class='nav-header'>Switching Views</li> -->
+				<!-- <li><a onClick="switchView('LineChart')">LineChart</a></li> -->
+			</ul>
+			<FORM name="myform">
+<!-- <INPUT TYPE="BUTTON" NAME="button1" id = "button1" VALUE="Play for me"
+ ONCLICK="toggleLoop(); toggleName();">
+</FORM> -->
+<INPUT TYPE="BUTTON" NAME="button1" id = "button1" VALUE="Play for me"
+ ONCLICK="toggleLoop(); toggleName();">
+
+ <INPUT TYPE="BUTTON" NAME="Brazil" id = "button4" VALUE="Show me Brazil"
+ ONCLICK="brazilonly();">
+  <INPUT TYPE="BUTTON" NAME="Brazil" id = "button5" VALUE="Show me Russia"
+ ONCLICK="russiaonly();">
+ <INPUT TYPE="BUTTON" NAME="India" id = "button3" VALUE="Show me India"
+ ONCLICK="indiaonly();">
+  <INPUT TYPE="BUTTON" NAME="China" id = "button2" VALUE="Show me China"
+ ONCLICK="chinaonly();">
+  <INPUT TYPE="BUTTON" NAME="All" id = "button6" VALUE="Show me ALL"
+ ONCLICK="showAll();">
+ 
+</FORM>
+			<div id='viz'></div>
+			<div id='viz2'></div>
+			<script>
+	show1 = function() {};
+	show2 = function() {};
+	function toggleName(){
+	if(document.myform.button1.value=="Play for me"){
+	document.myform.button1.value="Playing";
+	}
+	else{
+	document.myform.button1.value = "Play for me";}}
+	
+	function chinaonly(){
+	  
+	            viz.getWorkbook().getActiveSheet().getWorksheets()[0].applyFilterAsync("Country", 'China', "REPLACE");
+		viz.getWorkbook().getActiveSheet().getWorksheets()[1].applyFilterAsync("Country", 'China', "REPLACE");
+		viz.getWorkbook().getActiveSheet().getWorksheets()[2].applyFilterAsync("Country", 'China', "REPLACE");
+	}
+	
+	function indiaonly(){
+	  
+	            viz.getWorkbook().getActiveSheet().getWorksheets()[0].applyFilterAsync("Country", 'India', "REPLACE");
+		viz.getWorkbook().getActiveSheet().getWorksheets()[1].applyFilterAsync("Country", 'India', "REPLACE");
+		viz.getWorkbook().getActiveSheet().getWorksheets()[2].applyFilterAsync("Country", 'India', "REPLACE");
+	}
+	
+	function brazilonly(){
+	  
+	            viz.getWorkbook().getActiveSheet().getWorksheets()[0].applyFilterAsync("Country", 'Brazil', "REPLACE");
+		viz.getWorkbook().getActiveSheet().getWorksheets()[1].applyFilterAsync("Country", 'Brazil', "REPLACE");
+		viz.getWorkbook().getActiveSheet().getWorksheets()[2].applyFilterAsync("Country", 'Brazil', "REPLACE");
+	}
+	
+		function russiaonly(){
+	  
+	            viz.getWorkbook().getActiveSheet().getWorksheets()[0].applyFilterAsync("Country", 'Russian Federation', "REPLACE");
+		viz.getWorkbook().getActiveSheet().getWorksheets()[1].applyFilterAsync("Country", 'Russian Federation', "REPLACE");
+		viz.getWorkbook().getActiveSheet().getWorksheets()[2].applyFilterAsync("Country", 'Russian Federation', "REPLACE");
+	}
+	
+	
+	function showAll(){
+	  
+	            viz.getWorkbook().getActiveSheet().getWorksheets()[0].clearFilterAsync("Country");
+		viz.getWorkbook().getActiveSheet().getWorksheets()[1].clearFilterAsync("Country");
+		viz.getWorkbook().getActiveSheet().getWorksheets()[2].clearFilterAsync("Country");
+	}
+
+
+	
+		var toggle = false;
+		function toggleLoop() {
+			if(toggle) {
+				toggle=false;
+			} else {
+				toggle = true;
+				show1();
+			}
+		}
+		var placeholderViz = document.getElementById('viz');
+		var url = "http://public.tableausoftware.com/views/USExchangeRates/BRIC-ExchangeRate";
+		var viz;
+		var viz2;
+		var options1 = {
+			width: 1200,
+			height: 600,
+			hideToolbar: true,
+			showTabs: true,
+			onFirstInteractive: function () {
+				var numberIndex = 2005;
+				var numberIndex1 = 2005;
+			    viz.getWorkbook().getActiveSheet().getWorksheets()[0].applyFilterAsync("YEAR(Date)", '2005', "REPLACE");
+				viz.getWorkbook().getActiveSheet().getWorksheets()[1].applyFilterAsync("YEAR(Date)", '2005', "REPLACE");
+				viz.getWorkbook().getActiveSheet().getWorksheets()[2].applyFilterAsync("YEAR(Date)", '2005', "REPLACE"); 
+				var numberIndex = 2005;
+				var numberIndex1 = 2005;
+					
+	
+			}
+		};
+		var placeholderViz2 = document.getElementById('viz2');
+		var options2 = {
+			width: 1200,
+			height: 600,
+			hideToolbar: true,
+			showTabs: true,
+			onFirstInteractive: function () {
+			
+				viz2.getWorkbook().getActiveSheet().getWorksheets()[0].applyFilterAsync("YEAR(Date)", '2005', "REPLACE");
+				viz2.getWorkbook().getActiveSheet().getWorksheets()[1].applyFilterAsync("YEAR(Date)", '2005', "REPLACE");
+				viz2.getWorkbook().getActiveSheet().getWorksheets()[2].applyFilterAsync("YEAR(Date)", '2005', "REPLACE"); 
+				var numberIndex = 2005;
+				viz2.hide();
+				
+				show1 = function() {
+    
+                      //alert('viz1');
+					  if(numberIndex == 2012)
+					{
+
+					   viz.revertAllAsync();
+					   viz2.revertAllAsync();
+					   document.myform.button1.value="Play for me";
+					   viz = new tableauSoftware.Viz(placeholderViz, url, options1);
+		               viz2 = new tableauSoftware.Viz(placeholderViz2, url, options2);
+					   return;
+					}
+					numberIndex +=1;
+					viz.getWorkbook().getActiveSheet().getWorksheets()[0].applyFilterAsync("YEAR(Date)", numberIndex, "ADD").then(function() {
+					viz.getWorkbook().getActiveSheet().getWorksheets()[1].applyFilterAsync("YEAR(Date)", numberIndex, "ADD")
+					viz.getWorkbook().getActiveSheet().getWorksheets()[2].applyFilterAsync("YEAR(Date)", numberIndex, "REPLACE")
+					}).then(function() {
+
+						setTimeout( function() {
+							viz2.hide();
+							viz.show();
+							
+							show2();
+							
+						},2000);
+                  
+					 
+					});
+				
+					
+				};
+				
+				show2 = function() {
+ 
+                   //  alert('viz2');
+					 if(numberIndex == 2012)
+					{
+
+					   viz.revertAllAsync();
+					   viz2.revertAllAsync();
+					   document.myform.button1.value="Play for me";
+					   return;
+					}
+					if(document.myform.button1.value=="Playing"){
+					viz2.getWorkbook().getActiveSheet().getWorksheets()[0].applyFilterAsync("YEAR(Date)", numberIndex, "ADD").then(function() {
+					viz2.getWorkbook().getActiveSheet().getWorksheets()[1].applyFilterAsync("YEAR(Date)", numberIndex, "ADD")
+					viz2.getWorkbook().getActiveSheet().getWorksheets()[2].applyFilterAsync("YEAR(Date)", numberIndex, "REPLACE")
+					}).then(function() {
+						setTimeout(function() {
+							viz.hide();
+							viz2.show();
+							if(toggle) {
+							show1();
+							}
+						}, 2000);
+					});
+				  }	
+				};
+				show2();
+			}
+			
+			
+		};
+				
+				
+		viz = new tableauSoftware.Viz(placeholderViz, url, options1);
+		viz2 = new tableauSoftware.Viz(placeholderViz2, url, options2);
+	</script>
+			
+
+		</div>
+	</div>
+		
+	</body>
+	</html>
